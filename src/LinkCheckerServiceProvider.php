@@ -51,11 +51,14 @@ class SkeletonServiceProvider extends ServiceProvider
         ];
     }
 
+    /**
+     * @return \Spatie\Crawler\Crawler
+     */
     protected function getConfiguredCrawler()
     {
-        Crawler::create()
-            ->setObserver()
-            ->
+        return Crawler::create()
+            ->setCrawlObserver()
+            ->setCrawlProfile()
             ->startCrawling($url);
     }
 }
