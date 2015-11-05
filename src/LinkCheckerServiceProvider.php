@@ -19,9 +19,10 @@ class SkeletonServiceProvider extends ServiceProvider
         $this->app['command.linkchecker:run'] = $this->app->share(
             function () {
 
-                $this->getConfiguredCrawler();
-
-                return new CheckLinksCommand();
+                return new CheckLinksCommand(
+                    $this->getConfiguredCrawler(),
+                    $this->getUrlToBeCrawled()
+                );
             }
         );
 
@@ -56,9 +57,19 @@ class SkeletonServiceProvider extends ServiceProvider
      */
     protected function getConfiguredCrawler()
     {
+        $profiler = config('link-checker.profiler');
+
+        $reporter = config('link-checker.url');
+
         return Crawler::create()
-            ->setCrawlObserver()
-            ->setCrawlProfile()
-            ->startCrawling($url);
+            ->setCrawlProfile(new $profiler)
+            ->setCrawlObserver(new $reporter);
+    }
+
+    protected function getUrlToBeCrawled()
+    {
+        $url = config('link-checker.url');
+
+        if ($url == '') $url = config('app.url');
     }
 }
