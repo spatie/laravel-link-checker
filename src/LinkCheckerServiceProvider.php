@@ -5,7 +5,7 @@ namespace Spatie\LinkChecker;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Crawler\Crawler;
 
-class SkeletonServiceProvider extends ServiceProvider
+class LinkCheckerServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -18,7 +18,6 @@ class SkeletonServiceProvider extends ServiceProvider
 
         $this->app['command.linkchecker:run'] = $this->app->share(
             function () {
-
                 return new CheckLinksCommand(
                     $this->getConfiguredCrawler(),
                     $this->getUrlToBeCrawled()
@@ -48,7 +47,7 @@ class SkeletonServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'command.linkchecker:run',
+            'command.link-checker:run',
         ];
     }
 
@@ -57,19 +56,26 @@ class SkeletonServiceProvider extends ServiceProvider
      */
     protected function getConfiguredCrawler()
     {
-        $profiler = config('link-checker.profiler');
+        $profiler = config('laravel-link-checker.profile');
 
-        $reporter = config('link-checker.url');
+        $reporter = config('laravel-link-checker.reporter');
 
         return Crawler::create()
-            ->setCrawlProfile(new $profiler)
-            ->setCrawlObserver(new $reporter);
+            ->setCrawlProfile(app($profiler))
+            ->setCrawlObserver(app($reporter));
     }
 
+    /**
+     * Return the url to be crawled.
+     *
+     * @return string
+     */
     protected function getUrlToBeCrawled()
     {
-        $url = config('link-checker.url');
+        if (config('link-checker.url') == '') {
+            return config('app.url');
+        }
 
-        if ($url == '') $url = config('app.url');
+        return config('link-checker.url');
     }
 }
