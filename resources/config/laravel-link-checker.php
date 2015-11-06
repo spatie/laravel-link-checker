@@ -3,7 +3,7 @@
 return [
 
     /**
-     * The url that needs to be crawled. Leave this empty to use
+     * The base url of your app.  Leave this empty to use
      * the url configured in config/app.php
      */
     'url' => '',
@@ -15,7 +15,7 @@ return [
 
     /**
      * The reporter determine what needs to be done when the
-     * the crawe
+     * the crawler has visited an url.
      */
     'reporter' => Spatie\LinkChecker\Reporters\LogBrokenUrls::class,
 ];

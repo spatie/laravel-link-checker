@@ -9,11 +9,9 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-link-checker.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-link-checker)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-link-checker.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-link-checker)
 
+This package provides a command that can check all links on your laravel app. By default it will log all
+urls that do not return a status code in de 200- or 300-range to the log.
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
-
-Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
 ## Install
 
@@ -22,14 +20,66 @@ You can install the package via composer:
 $ composer require spatie/laravel-link-checker
 ```
 
+Next, you must install the service provider:
+
+```php
+// config/app.php
+'providers' => [
+    ...
+    Spatie\LinkChecker\LinkCheckerServiceProvider::class,
+];
+```
+
+You can publish the config-file with:
+```bash
+php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="config"
+```
+
+This is the contents of the published config file:
+
+```php
+return [
+
+    /**
+     * The base url of your app.  Leave this empty to use
+     * the url configured in config/app.php
+     */
+    'url' => '',
+
+    /**
+     * The profile determines which urls needs to be checked.
+     */
+    'profile' => Spatie\LinkChecker\CheckAllUrls::class,
+
+    /**
+     * The reporter determine what needs to be done when the
+     * the crawler has visited an url.
+     */
+    'reporter' => Spatie\LinkChecker\Reporters\LogBrokenUrls::class,
+];
+```
 
 
 ## Usage
 
-``` php
-$skeleton = new Spatie\Skeleton();
-echo $skeleton->echoPhrase('Hello, Spatie!');
+You can start checking all links by issuing this command:
+
+```bash
+php artisan link-checker:run
 ```
+
+To frequently check all links you can schedule the command:
+
+```php
+// app/console/Kernel.php
+
+protected function schedule(Schedule $schedule)
+{
+    ...
+    $schedule->command('link-checker:run')->sundays();
+    ...
+}
+    ``` 
 
 ## Change log
 
