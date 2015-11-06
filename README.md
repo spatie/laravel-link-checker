@@ -79,7 +79,7 @@ protected function schedule(Schedule $schedule)
     $schedule->command('link-checker:run')->sundays();
     ...
 }
-    ``` 
+``` 
 
 ## Change log
 
