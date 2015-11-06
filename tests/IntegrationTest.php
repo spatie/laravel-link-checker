@@ -52,6 +52,8 @@ abstract class IntegrationTest extends Orchestra
     protected function setUpRoutes($app)
     {
         Route::any('/', function () {
+            dd('home visited');
+
             return collect(['200', '300', '400', '500'])->reduce(function ($carry, $statusCode) {
                 return $carry.'<a href="'.$statusCode.'">'.$statusCode.'</a>';
             }, '');

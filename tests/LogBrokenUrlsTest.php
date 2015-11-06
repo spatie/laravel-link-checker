@@ -4,7 +4,7 @@ namespace Spatie\LinkChecker\Test;
 
 use Illuminate\Support\Facades\Artisan;
 
-class LogBrokenUrlsTest extends TestCase
+class LogBrokenUrlsTest extends IntegrationTest
 {
     /**
      * @test
