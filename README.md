@@ -81,6 +81,13 @@ protected function schedule(Schedule $schedule)
 }
 ``` 
 
+Want to run the crawler on a different url? No problem!
+
+```bash
+php artisan link-checker:run https://laravel.com
+```
+
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
