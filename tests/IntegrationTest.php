@@ -6,7 +6,6 @@ use Orchestra\Testbench\TestCase as Orchestra;
 use Route;
 use Spatie\Crawler\Crawler;
 use Spatie\LinkChecker\LinkCheckerServiceProvider;
-use Symfony\Component\HttpFoundation\Response;
 
 abstract class IntegrationTest extends Orchestra
 {
@@ -15,11 +14,14 @@ abstract class IntegrationTest extends Orchestra
      */
     protected $crawler;
 
+    /**
+     * @var string
+     */
+    protected $host = 'http://localhost:3000';
+
     public function setUp()
     {
         parent::setUp();
-
-        $this->setUpRoutes($this->app);
 
         $this->setUpConfig($this->app);
 
@@ -43,25 +45,7 @@ abstract class IntegrationTest extends Orchestra
      */
     protected function setUpConfig($app)
     {
-        $app['config']->set('laravel-link-checker.url', 'http://localhost');
+        $app['config']->set('laravel-link-checker.url', $this->host);
     }
 
-    /**
-     * @param \Illuminate\Foundation\Application $app
-     */
-    protected function setUpRoutes($app)
-    {
-        Route::any('/', function () {
-            dd('home visited');
-
-            return collect(['200', '300', '400', '500'])->reduce(function ($carry, $statusCode) {
-                return $carry.'<a href="'.$statusCode.'">'.$statusCode.'</a>';
-            }, '');
-
-        });
-
-        Route::any('/{responsecode}', function ($statusCode) {
-            return (new Response("reponse for statuscode {$statusCode}", $statusCode));
-        });
-    }
 }
