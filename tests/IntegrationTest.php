@@ -18,7 +18,7 @@ abstract class IntegrationTest extends Orchestra
     /**
      * @var string
      */
-    protected $appUrl = 'http://localhost:3000';
+    protected $appUrl = 'http://localhost:4020';
 
     public function setUp()
     {

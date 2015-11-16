@@ -22,7 +22,7 @@ app.get('/:responseCode', (req, res) => {
     res.status(responseCode).send(`Responsecode ${responseCode}`)
 });
 
-var server = app.listen(3000,  () => {
+var server = app.listen(4020,  () => {
     let host = server.address().address
     let port = server.address().port
 
