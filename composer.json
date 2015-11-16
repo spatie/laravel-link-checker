@@ -21,7 +21,7 @@
     ],
     "require": {
         "php" : ">=5.5.0",
-        "spatie/crawler": "^1.0"
+        "spatie/crawler": "^1.1.1"
 
     },
     "require-dev": {

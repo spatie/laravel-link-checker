@@ -2,6 +2,7 @@
 
 namespace Spatie\LinkChecker\Test;
 
+use Log;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Route;
 use Spatie\Crawler\Crawler;
@@ -17,7 +18,7 @@ abstract class IntegrationTest extends Orchestra
     /**
      * @var string
      */
-    protected $host = 'http://localhost:3000';
+    protected $appUrl = 'http://localhost:3000';
 
     public function setUp()
     {
@@ -45,7 +46,62 @@ abstract class IntegrationTest extends Orchestra
      */
     protected function setUpConfig($app)
     {
-        $app['config']->set('laravel-link-checker.url', $this->host);
+        $app['config']->set('laravel-link-checker.url', $this->appUrl);
+    }
+
+
+    /**
+     * Put a marker in the log file.
+     *
+     * @param $suffix
+     */
+    protected function placeMarker($suffix = '')
+    {
+        Log::info("test marker {$suffix}");
+    }
+
+    /**
+     * Determine if log contains the given text after the last mark
+     *
+     * @param $text
+     */
+    public function assertLogContainsTextAfterLastMarker($text)
+    {
+        $this->assertTrue(str_contains($this->getLogContentsAfterLastMarker(), $text));
+    }
+
+    /**
+     * Get the contents of the log after the last marker.
+     *
+     * @return string
+     */
+    protected function getLogContentsAfterLastMarker()
+    {
+        $startTestMarker = "test marker";
+
+        $logContents = file_get_contents($this->findNewestLocalLogfile());
+
+        $lastMarkerPosition = strrpos($logContents, $startTestMarker);
+
+        $contentsAfterLastMarker  = substr($logContents, $lastMarkerPosition);
+
+        return $contentsAfterLastMarker;
+    }
+
+    /**
+     * Get the path to the latest local Laravel log file.
+     *
+     * @return null|string
+     */
+    protected function findNewestLocalLogfile()
+    {
+        $files = glob(storage_path('logs')."/*.log");
+        $files = array_combine($files, array_map("filemtime", $files));
+        arsort($files);
+
+        $newestLogFile = key($files);
+
+        return $newestLogFile;
     }
 
 }

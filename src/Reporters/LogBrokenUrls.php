@@ -31,13 +31,15 @@ class LogBrokenUrls implements CrawlObserver
      */
     public function willCrawl(Url $url)
     {
+
     }
 
     /**
      * Called when the crawler has crawled the given url.
      *
-     * @param Url                                      $url
+     * @param Url $url
      * @param \Psr\Http\Message\ResponseInterface|null $response
+     * @return string
      */
     public function hasBeenCrawled(Url $url, $response)
     {
@@ -46,10 +48,10 @@ class LogBrokenUrls implements CrawlObserver
         $this->crawledUrls[$statusCode][] = $url;
 
         if ($this->isSuccessOrRedirect($statusCode)) {
-            return
+            return;
+        }
 
         $reason = $response ? $response->getReasonPhrase() : '';
-        }
 
         $this->log->warning("{$statusCode} {$reason} - {$url}");
     }
@@ -60,7 +62,9 @@ class LogBrokenUrls implements CrawlObserver
     public function finishedCrawling()
     {
         $this->log->info('link checker summary');
+
         foreach ($this->crawledUrls as $statusCode => $urls) {
+
             if (!$this->isSuccessOrRedirect($statusCode)) {
                 $count = count($urls);
 
@@ -70,7 +74,9 @@ class LogBrokenUrls implements CrawlObserver
                     $this->log->warning("{$count} url(s) did have unresponsive host(s)");
                 }
             }
+
         }
+
     }
 
     /**
