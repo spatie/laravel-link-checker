@@ -67,6 +67,7 @@ abstract class IntegrationTest extends Orchestra
      */
     public function assertLogContainsTextAfterLastMarker($text)
     {
+        echo 'last:' . $this->getLogContentsAfterLastMarker();
         $this->assertTrue(str_contains($this->getLogContentsAfterLastMarker(), $text));
     }
 
