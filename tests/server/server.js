@@ -21,8 +21,8 @@ app.get('/:responseCode', (req, res) => {
     res.status(responseCode).send(`Responsecode ${responseCode}`)
 });
 
-var server = app.listen(4020,  () => {
-    let host = server.address().address
+let server = app.listen(4020,  () => {
+    let host = 'localhost'
     let port = server.address().port
 
     console.log('Testing server listening at http://%s:%s', host, port)
