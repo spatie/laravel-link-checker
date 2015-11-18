@@ -8,7 +8,7 @@ if [ -z ${TRAVIS_JOB_ID} ]; then
     node server.js
 else
     cd tests/server
-    
+
     npm install
     # running under travis, daemonize
     (node server.js &) || /bin/true
