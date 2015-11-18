@@ -6,7 +6,7 @@ php:
   - 7.0
 
 before_install:
-   - npm install
+   - npm install npm
 
 node_js:
   - "5"
