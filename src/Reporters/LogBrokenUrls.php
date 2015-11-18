@@ -53,11 +53,14 @@ class LogBrokenUrls extends BaseReporter
 
                 $count = count($urls);
 
-                $this->log->warning("Crawled {$count} url(s) with statuscode {$statusCode}");
-
                 if ($statusCode == static::UNRESPONSIVE_HOST) {
                     $this->log->warning("{$count} url(s) did have unresponsive host(s)");
+
+                    return;
                 }
+
+                $this->log->warning("Crawled {$count} url(s) with statuscode {$statusCode}");
+
             });
     }
 }
