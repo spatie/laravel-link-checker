@@ -1,6 +1,6 @@
 "use strict"
 
-const app = require('express')()
+let app = require('express')()
 
 app.get('/', (req, res) => {
     let html = [200, 300, 400, 500]
