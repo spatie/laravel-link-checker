@@ -3,21 +3,14 @@
 namespace Spatie\LinkChecker\Reporters;
 
 use Illuminate\Contracts\Logging\Log;
-use Spatie\Crawler\CrawlObserver;
 use Spatie\Crawler\Url;
 
-class LogBrokenUrls implements CrawlObserver
+class LogBrokenUrls extends BaseReporter
 {
-    const UNRESPONSIVE_HOST = 'Host did not respond';
-
-    /**
-     * @var array
-     */
-    protected $crawledUrls = [];
     /**
      * @var \Illuminate\Contracts\Logging\Log
      */
-    private $log;
+    protected $log;
 
     public function __construct(Log $log)
     {
@@ -25,27 +18,16 @@ class LogBrokenUrls implements CrawlObserver
     }
 
     /**
-     * Called when the crawler will crawl the url.
-     *
-     * @param \Spatie\Crawler\Url $url
-     */
-    public function willCrawl(Url $url)
-    {
-    }
-
-    /**
      * Called when the crawler has crawled the given url.
      *
-     * @param \Spatie\Crawler\Url                                      $url
+     * @param \Spatie\Crawler\Url                      $url
      * @param \Psr\Http\Message\ResponseInterface|null $response
      *
      * @return string
      */
     public function hasBeenCrawled(Url $url, $response)
     {
-        $statusCode = $response ? $response->getStatusCode() : self::UNRESPONSIVE_HOST;
-
-        $this->crawledUrls[$statusCode][] = $url;
+        $statusCode = parent::hasBeenCrawled($url, $response);
 
         if ($this->isSuccessOrRedirect($statusCode)) {
             return;
@@ -63,8 +45,12 @@ class LogBrokenUrls implements CrawlObserver
     {
         $this->log->info('link checker summary');
 
-        foreach ($this->crawledUrls as $statusCode => $urls) {
-            if (!$this->isSuccessOrRedirect($statusCode)) {
+        collect($this->urlsGroupedByStatusCode)
+            ->each(function ($urls, $statusCode) {
+                if ($this->isSuccessOrRedirect($statusCode)) {
+                    return;
+                }
+
                 $count = count($urls);
 
                 $this->log->warning("Crawled {$count} url(s) with statuscode {$statusCode}");
@@ -72,20 +58,6 @@ class LogBrokenUrls implements CrawlObserver
                 if ($statusCode == static::UNRESPONSIVE_HOST) {
                     $this->log->warning("{$count} url(s) did have unresponsive host(s)");
                 }
-            }
-        }
-    }
-
-    /**
-     * Determine if the statuscode concerns a successful or
-     * redirect response.
-     *
-     * @param int $statusCode
-     *
-     * @return bool
-     */
-    protected function isSuccessOrRedirect($statusCode)
-    {
-        return (starts_with($statusCode, ['2', '3']));
+            });
     }
 }
