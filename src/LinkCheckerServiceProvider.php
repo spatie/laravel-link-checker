@@ -16,6 +16,8 @@ class LinkCheckerServiceProvider extends ServiceProvider
             __DIR__.'/../resources/config/laravel-link-checker.php' => config_path('laravel-link-checker.php'),
         ], 'config');
 
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-link-checker');
+
         $this->app['command.linkchecker:run'] = $this->app->share(
             function () {
                 return new CheckLinksCommand(
@@ -56,9 +58,9 @@ class LinkCheckerServiceProvider extends ServiceProvider
      */
     protected function getConfiguredCrawler()
     {
-        $profiler = config('laravel-link-checker.profile');
+        $profiler = config('laravel-link-checker.defaultProfile');
 
-        $reporter = config('laravel-link-checker.reporter');
+        $reporter = config('laravel-link-checker.defaultReporter');
 
         return Crawler::create()
             ->setCrawlProfile(app($profiler))

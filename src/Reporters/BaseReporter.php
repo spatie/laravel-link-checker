@@ -52,4 +52,16 @@ abstract class BaseReporter implements CrawlObserver
     {
         return (starts_with($statusCode, ['2', '3']));
     }
+
+    /**
+     * Determine if the crawler saw some bad urls.
+     *
+     * @return bool
+     */
+    protected function crawledBadUrls()
+    {
+        return collect($this->urlsGroupedByStatusCode)->keys()->filter(function ($statusCode) {
+            return !$this->isSuccessOrRedirect($statusCode);
+        })->count() > 0;
+    }
 }

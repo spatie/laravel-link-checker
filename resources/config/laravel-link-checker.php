@@ -11,11 +11,32 @@ return [
     /**
      * The profile determines which urls needs to be checked.
      */
-    'profile' => Spatie\LinkChecker\CheckAllUrls::class,
+    'defaultProfile' => Spatie\LinkChecker\CheckAllUrls::class,
 
     /**
      * The reporter determine what needs to be done when the
      * the crawler has visited an url.
      */
-    'reporter' => Spatie\LinkChecker\Reporters\LogBrokenUrls::class,
+    'defaultReporter' => Spatie\LinkChecker\Reporters\LogBrokenUrls::class,
+
+
+    /**
+     *  Here you can specify configuration regarding the used reporters
+     */
+    'reporters' => [
+
+
+        'mail' => [
+
+            /**
+             * The to address to be used by the mail reporter.
+             */
+            'toAddress' => '',
+
+            /**
+             * The from address to be used by the mail reporter.
+             */
+            'fromAddress'
+        ]
+    ]
 ];
