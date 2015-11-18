@@ -17,7 +17,7 @@ return [
      * The reporter determine what needs to be done when the
      * the crawler has visited an url.
      */
-    'defaultReporter' => Spatie\LinkChecker\Reporters\LogBrokenUrls::class,
+    'defaultReporter' => Spatie\LinkChecker\Reporters\MailBrokenUrls::class,
 
 
     /**

@@ -11,7 +11,7 @@ class MailBrokenUrls extends BaseReporter
      */
     protected $mail;
 
-    public function __construct(Mailer $mail, )
+    public function __construct(Mailer $mail)
     {
         $this->mail = $mail;
     }
