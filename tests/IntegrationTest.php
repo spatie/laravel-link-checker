@@ -4,7 +4,6 @@ namespace Spatie\LinkChecker\Test;
 
 use Log;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Route;
 use Spatie\Crawler\Crawler;
 use Spatie\LinkChecker\LinkCheckerServiceProvider;
 
@@ -49,7 +48,6 @@ abstract class IntegrationTest extends Orchestra
         $app['config']->set('laravel-link-checker.url', $this->appUrl);
     }
 
-
     /**
      * Put a marker in the log file.
      *
@@ -61,13 +59,13 @@ abstract class IntegrationTest extends Orchestra
     }
 
     /**
-     * Determine if log contains the given text after the last mark
+     * Determine if log contains the given text after the last mark.
      *
      * @param $text
      */
     public function assertLogContainsTextAfterLastMarker($text)
     {
-        echo 'last:' . $this->getLogContentsAfterLastMarker();
+        echo 'last:'.$this->getLogContentsAfterLastMarker();
         $this->assertTrue(str_contains($this->getLogContentsAfterLastMarker(), $text));
     }
 
@@ -78,13 +76,13 @@ abstract class IntegrationTest extends Orchestra
      */
     protected function getLogContentsAfterLastMarker()
     {
-        $startTestMarker = "test marker";
+        $startTestMarker = 'test marker';
 
         $logContents = file_get_contents($this->findNewestLocalLogfile());
 
         $lastMarkerPosition = strrpos($logContents, $startTestMarker);
 
-        $contentsAfterLastMarker  = substr($logContents, $lastMarkerPosition);
+        $contentsAfterLastMarker = substr($logContents, $lastMarkerPosition);
 
         return $contentsAfterLastMarker;
     }
@@ -96,13 +94,12 @@ abstract class IntegrationTest extends Orchestra
      */
     protected function findNewestLocalLogfile()
     {
-        $files = glob(storage_path('logs')."/*.log");
-        $files = array_combine($files, array_map("filemtime", $files));
+        $files = glob(storage_path('logs').'/*.log');
+        $files = array_combine($files, array_map('filemtime', $files));
         arsort($files);
 
         $newestLogFile = key($files);
 
         return $newestLogFile;
     }
-
 }

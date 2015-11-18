@@ -13,7 +13,7 @@ class LogBrokenUrlsTest extends IntegrationTest
     {
         $this->placeMarker();
 
-        $this->app[Kernel::class]->call("link-checker:run", ['url' => $this->appUrl]);
+        $this->app[Kernel::class]->call('link-checker:run', ['url' => $this->appUrl]);
 
         $this->assertLogContainsTextAfterLastMarker('400 Bad Request - http://localhost:4020/400');
         $this->assertLogContainsTextAfterLastMarker('500 Internal Server Error - http://localhost:4020/500');
