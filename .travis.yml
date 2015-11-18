@@ -5,8 +5,11 @@ php:
   - 5.6
   - 7.0
 
+before_install:
+   - npm install
+
 node_js:
-  - "4.2.1"
+  - "5"
 
 env:
   matrix:
