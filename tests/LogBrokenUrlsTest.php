@@ -15,8 +15,8 @@ class LogBrokenUrlsTest extends IntegrationTest
 
         $this->app[Kernel::class]->call("link-checker:run", ['url' => $this->appUrl]);
 
-        $this->assertLogContainsTextAfterLastMarker('400 Bad Request - http://localhost:3000/400');
-        $this->assertLogContainsTextAfterLastMarker('500 Internal Server Error - http://localhost:3000/500');
+        $this->assertLogContainsTextAfterLastMarker('400 Bad Request - http://localhost:4020/400');
+        $this->assertLogContainsTextAfterLastMarker('500 Internal Server Error - http://localhost:4020/500');
         $this->assertLogContainsTextAfterLastMarker('link checker summary');
         $this->assertLogContainsTextAfterLastMarker('Crawled 1 url(s) with statuscode 400');
         $this->assertLogContainsTextAfterLastMarker('Crawled 1 url(s) with statuscode 500');
