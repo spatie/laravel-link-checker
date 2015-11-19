@@ -33,7 +33,7 @@ abstract class BaseReporter implements CrawlObserver
      */
     public function hasBeenCrawled(Url $url, $response)
     {
-        $statusCode = $response ? $response->getStatusCode() : self::UNRESPONSIVE_HOST;
+        $statusCode = $response ? $response->getStatusCode() : static::UNRESPONSIVE_HOST;
 
         $this->urlsGroupedByStatusCode[$statusCode][] = $url;
 
@@ -62,6 +62,6 @@ abstract class BaseReporter implements CrawlObserver
     {
         return collect($this->urlsGroupedByStatusCode)->keys()->filter(function ($statusCode) {
             return !$this->isSuccessOrRedirect($statusCode);
-        })->count() > 0;
+        })->isEmpty();
     }
 }

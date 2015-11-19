@@ -11,6 +11,10 @@ class MailBrokenUrls extends BaseReporter
      */
     protected $mail;
 
+    /**
+     * MailBrokenUrls constructor.
+     * @param \Illuminate\Contracts\Mail\Mailer $mail
+     */
     public function __construct(Mailer $mail)
     {
         $this->mail = $mail;

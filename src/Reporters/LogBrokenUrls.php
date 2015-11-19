@@ -12,6 +12,9 @@ class LogBrokenUrls extends BaseReporter
      */
     protected $log;
 
+    /**
+     * @param \Illuminate\Contracts\Logging\Log $log
+     */
     public function __construct(Log $log)
     {
         $this->log = $log;
