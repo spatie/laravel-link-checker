@@ -30,7 +30,18 @@ Next, you must install the service provider:
 ];
 ```
 
-You can publish the config-file with:
+You must register the `\Spatie\LinkChecker\CheckLinksCommand`:
+
+```php
+// app/Console\Kernel.php
+protected $commands = [
+    ...
+    \Spatie\LinkChecker\CheckLinksCommand::class,
+];
+```
+
+
+You can optionally publish the config-file with:
 ```bash
 php artisan vendor:publish --provider="Spatie\LinkChecker\LinkCheckerServiceProvider" --tag="config"
 ```
