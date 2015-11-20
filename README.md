@@ -33,7 +33,7 @@ Next, you must install the service provider:
 You must register the `\Spatie\LinkChecker\CheckLinksCommand`:
 
 ```php
-// app/Console\Kernel.php
+// app/Console/Kernel.php
 protected $commands = [
     ...
     \Spatie\LinkChecker\CheckLinksCommand::class,
