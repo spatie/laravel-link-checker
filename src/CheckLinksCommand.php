@@ -28,7 +28,7 @@ class CheckLinksCommand extends Command
     
     public function handle()
     {
-        (new Crawler())
+        Crawler::create()
             ->setCrawlProfile($this->getProfile())
             ->setCrawlObserver($this->getReporter())
             ->startCrawling($this->getUrlToBeCrawled());
