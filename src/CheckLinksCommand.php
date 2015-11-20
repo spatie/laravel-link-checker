@@ -24,29 +24,14 @@ class CheckLinksCommand extends Command
      * @var string
      */
     protected $description = 'Check all links';
-    /**
-     * @var string|null
-     */
-    protected $url = null;
 
-    public function __construct(Crawler $crawler, $url = '')
-    {
-        parent::__construct();
-
-        $this->crawler = $crawler;
-
-        $this->url = $url;
-    }
-
+    
     public function handle()
     {
-        $url = $this->getUrlToBeCrawled();
-
-        $this->setProfiler($this->crawler);
-
-        $this->setReporter($this->crawler);
-
-        $this->crawler->startCrawling($url);
+        (new Crawler())
+            ->setCrawlProfile($this->getProfile())
+            ->setCrawlObserver($this->getReporter())
+            ->startCrawling($this->getUrlToBeCrawled());
 
         $this->info('All done!');
     }
@@ -64,34 +49,53 @@ class CheckLinksCommand extends Command
             return $this->argument('url');
         }
 
-        if (!is_null($this->url)) {
-            return $this->url;
+        if (config('laravel-link-checker.url') != '') {
+            return config('laravel-link-checker.url');
+        }
+
+        if (config('app.url') != '') {
+            return config('app.url');
         }
 
         throw new Exception('could not determine which url to be crawled.');
     }
 
     /**
-     * Set a custom profiler.
+     * Get a the profile.
      *
-     * @param \Spatie\Crawler\Crawler $crawler
+     * @return \Spatie\Crawler\CrawlProfile
      */
-    protected function setProfiler($crawler)
+    protected function getProfile()
     {
         if (!is_null($this->option('profile'))) {
-            $crawler->setCrawlProfile(app($this->argument('profile')));
+            return app($this->argument('profile'));
         }
+        
+        if (config('laravel-link-checker.profile') != '') {
+            return app(config('laravel-link-checker.profile'));
+        }
+        
+        return new Exception('Could not determine the profile to be used');
+            
     }
 
     /**
-     * Set a custom reporter.
-     *
-     * @param \Spatie\Crawler\Crawler $crawler
+     * Get the reporter.
+     * 
+     * @return \Spatie\Crawler\CrawlObserver
      */
-    protected function setReporter($crawler)
+    protected function getReporter()
     {
         if (!is_null($this->option('reporter'))) {
-            $crawler->setReporter(app($this->argument('reporter')));
+            return app($this->argument('reporter'));
         }
+
+        if (config('laravel-link-checker.reporter') != '') {
+            return app(config('laravel-link-checker.reporter'));
+        }
+
+        return new Exception('Could not reporter the profile to be used');
+        
+        
     }
 }
