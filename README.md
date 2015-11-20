@@ -32,7 +32,7 @@ Next, you must install the service provider:
 
 You can publish the config-file with:
 ```bash
-php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Spatie\LinkChecker\LinkCheckerServiceProvider" --tag="config"
 ```
 
 This is the contents of the published config file:
