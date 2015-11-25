@@ -17,7 +17,7 @@ links that do not return a status code in de 200- or 300-range to the log. There
 
 You can install the package via composer:
 ``` bash
-$ composer require spatie/laravel-link-checker
+composer require spatie/laravel-link-checker
 ```
 
 Next, you must install the service provider:
