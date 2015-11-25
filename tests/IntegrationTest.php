@@ -46,6 +46,13 @@ abstract class IntegrationTest extends Orchestra
     protected function setUpConfig($app)
     {
         $app['config']->set('laravel-link-checker.url', $this->appUrl);
+        $app['config']->set('laravel-link-checker.url', $this->appUrl);
+
+        $app['config']->set('laravel-link-checker.reporters.mail.fromAddress', 'technical@spatie.be');
+        $app['config']->set('laravel-link-checker.reporters.mail.toAddress', 'technical@spatie.be');
+
+        $app['config']->set('app.key', 'SomeRandomString');
+        $app['config']->set('app.cipher', MCRYPT_RIJNDAEL_128);
     }
 
     /**
@@ -65,8 +72,7 @@ abstract class IntegrationTest extends Orchestra
      */
     public function assertLogContainsTextAfterLastMarker($text)
     {
-        echo 'last:'.$this->getLogContentsAfterLastMarker();
-        $this->assertTrue(str_contains($this->getLogContentsAfterLastMarker(), $text));
+        $this->assertContains($text, $this->getLogContentsAfterLastMarker());
     }
 
     /**

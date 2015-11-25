@@ -10,7 +10,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-link-checker.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-link-checker)
 
 This package provides a command that can check all links on your laravel app. By default it will log all
-urls that do not return a status code in de 200- or 300-range to the log.
+links that do not return a status code in de 200- or 300-range to the log. There also an option to mail broken links.
 
 
 ## Install
@@ -40,7 +40,6 @@ protected $commands = [
 ];
 ```
 
-
 You can optionally publish the config-file with:
 ```bash
 php artisan vendor:publish --provider="Spatie\LinkChecker\LinkCheckerServiceProvider" --tag="config"
@@ -58,15 +57,36 @@ return [
     'url' => '',
 
     /**
-     * The profile determines which urls needs to be checked.
+     * The profile determines which links needs to be checked.
      */
-    'profile' => Spatie\LinkChecker\CheckAllUrls::class,
+    'defaultProfile' => Spatie\LinkChecker\CheckAllLinks::class,
 
     /**
      * The reporter determine what needs to be done when the
-     * the crawler has visited an url.
+     * the crawler has visited an link.
      */
-    'reporter' => Spatie\LinkChecker\Reporters\LogBrokenUrls::class,
+    'defaultReporter' => Spatie\LinkChecker\Reporters\LogBrokenLinks::class,
+
+
+    /**
+     *  Here you can specify configuration regarding the used reporters
+     */
+    'reporters' => [
+
+
+        'mail' => [
+
+            /**
+             * The to address to be used by the mail reporter.
+             */
+            'toAddress' => '',
+
+            /**
+             * The from address to be used by the mail reporter.
+             */
+            'fromAddress' => '',
+        ]
+    ]
 ];
 ```
 
@@ -88,16 +108,71 @@ protected function schedule(Schedule $schedule)
 {
     ...
     $schedule->command('link-checker:run')->sundays();
-    ...
 }
 ``` 
 
 Want to run the crawler on a different url? No problem!
 
 ```bash
-php artisan link-checker:run https://laravel.com
+php artisan link-checker:run --url=https://laravel.com
 ```
 
+### Mail broken links
+By default the package will log all broken links. If you want to have them mailed instead, just specify
+`Spatie\LinkChecker\Reporters\MailBrokenLinks` in the `defaultReporter` option in the config file.
+
+## Creating your own crawl profile
+A crawlprofile determines which links need to be crawled. By default `Spatie\LinkChecker\CheckAllLinks` is used,
+which will check all links it finds. This behaviour can be customized by specify a class in the `defaultProfile`-option in the config file.
+The class must implemented the `Spatie\Crawler\CrawlProfile`-interface:
+
+```php
+
+interface CrawlProfile
+{
+    /**
+     * Determine if the given url should be crawled.
+     *
+     * @param \Spatie\Crawler\Url $url
+     *
+     * @return bool
+     */
+    public function shouldCrawl(Url $url);
+}
+```
+
+## Creating your own reporter
+A reporter determines what should be done when the a link is crawled and when the crawling process is finished.
+This package provides two reporters: `Spatie\LinkChecker\Reporters\LogBrokenLinks` and `Spatie\LinkChecker\Reporters\MailBrokenLinks`.
+You can create your own behaviour by making a class adhere to the `Spatie\Crawler\CrawlObserver`-interface:
+
+```php
+interface CrawlObserver
+{
+    /**
+     * Called when the crawler will crawl the url.
+     *
+     * @param \Spatie\Crawler\Url $url
+     */
+    public function willCrawl(Url $url);
+
+    /**
+     * Called when the crawler has crawled the given url.
+     *
+     * @param \Spatie\Crawler\Url                      $url
+     * @param \Psr\Http\Message\ResponseInterface|null $response
+     */
+    public function hasBeenCrawled(Url $url, $response);
+
+    /**
+     * Called when the crawl has ended.
+     */
+    public function finishedCrawling();
+}
+``` 
+  
+To make it easier to create a reporter you can extend `Spatie\LinkChecker\Reporters\BaseReporter` which
+provides many useful methods.
 
 ## Change log
 

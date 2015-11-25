@@ -4,6 +4,6 @@ namespace Spatie\LinkChecker;
 
 use Spatie\Crawler\CrawlAllUrls;
 
-class CheckAllUrls extends CrawlAllUrls
+class CheckAllLinks extends CrawlAllUrls
 {
 }

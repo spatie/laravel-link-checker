@@ -14,7 +14,7 @@ class CheckLinksCommand extends Command
      * @var string
      */
     protected $signature = 'link-checker:run
-                        {url? : the url to be crawler}
+                        {--url= : the url to be crawler}
                         {--profile= : The profiler to be used}
                         {--reporter= : The reporter to be used}
                         ';
@@ -25,7 +25,6 @@ class CheckLinksCommand extends Command
      */
     protected $description = 'Check all links';
 
-    
     public function handle()
     {
         Crawler::create()
@@ -45,8 +44,8 @@ class CheckLinksCommand extends Command
      */
     protected function getUrlToBeCrawled()
     {
-        if (!is_null($this->argument('url'))) {
-            return $this->argument('url');
+        if (!is_null($this->option('url'))) {
+            return $this->option('url');
         }
 
         if (config('laravel-link-checker.url') != '') {
@@ -64,38 +63,39 @@ class CheckLinksCommand extends Command
      * Get a the profile.
      *
      * @return \Spatie\Crawler\CrawlProfile
+     *
+     * @throws \Exception
      */
     protected function getProfile()
     {
         if (!is_null($this->option('profile'))) {
-            return app($this->argument('profile'));
+            return app($this->option('profile'));
         }
-        
-        if (config('laravel-link-checker.profile') != '') {
-            return app(config('laravel-link-checker.profile'));
+
+        if (config('laravel-link-checker.defaultProfile') != '') {
+            return app(config('laravel-link-checker.defaultProfile'));
         }
-        
-        return new Exception('Could not determine the profile to be used');
-            
+
+        throw new Exception('Could not determine the profile to be used');
     }
 
     /**
      * Get the reporter.
-     * 
+     *
      * @return \Spatie\Crawler\CrawlObserver
+     *
+     * @throws \Exception
      */
     protected function getReporter()
     {
         if (!is_null($this->option('reporter'))) {
-            return app($this->argument('reporter'));
+            return app($this->option('reporter'));
         }
 
-        if (config('laravel-link-checker.reporter') != '') {
-            return app(config('laravel-link-checker.reporter'));
+        if (config('laravel-link-checker.defaultReporter') != '') {
+            return app(config('laravel-link-checker.defaultReporter'));
         }
 
-        return new Exception('Could not reporter the profile to be used');
-        
-        
+        throw new Exception('Could not reporter the profile to be used');
     }
 }

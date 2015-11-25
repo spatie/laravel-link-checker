@@ -50,7 +50,7 @@ abstract class BaseReporter implements CrawlObserver
      */
     protected function isSuccessOrRedirect($statusCode)
     {
-        return (starts_with($statusCode, ['2', '3']));
+        return starts_with($statusCode, ['2', '3']);
     }
 
     /**
@@ -62,6 +62,6 @@ abstract class BaseReporter implements CrawlObserver
     {
         return collect($this->urlsGroupedByStatusCode)->keys()->filter(function ($statusCode) {
             return !$this->isSuccessOrRedirect($statusCode);
-        })->isEmpty();
+        })->count() > 0;
     }
 }

@@ -5,7 +5,7 @@ namespace Spatie\LinkChecker\Reporters;
 use Illuminate\Contracts\Logging\Log;
 use Spatie\Crawler\Url;
 
-class LogBrokenUrls extends BaseReporter
+class LogBrokenLinks extends BaseReporter
 {
     /**
      * @var \Illuminate\Contracts\Logging\Log

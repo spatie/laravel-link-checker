@@ -4,7 +4,7 @@ namespace Spatie\LinkChecker\Reporters;
 
 use Illuminate\Contracts\Mail\Mailer;
 
-class MailBrokenUrls extends BaseReporter
+class MailBrokenLinks extends BaseReporter
 {
     /**
      * @var Mailer
@@ -12,7 +12,8 @@ class MailBrokenUrls extends BaseReporter
     protected $mail;
 
     /**
-     * MailBrokenUrls constructor.
+     * MailBrokenLinks constructor.
+     *
      * @param \Illuminate\Contracts\Mail\Mailer $mail
      */
     public function __construct(Mailer $mail)
@@ -25,16 +26,15 @@ class MailBrokenUrls extends BaseReporter
      */
     public function finishedCrawling()
     {
-        if (! $this->crawledBadUrls()) {
-            return ;
+        if (!$this->crawledBadUrls()) {
+            return;
         }
 
         $urlsGroupedByStatusCode = $this->urlsGroupedByStatusCode;
 
-        $this->mail->send('laravel-link-checker::crawlReport', compact('urlsGroupedByStatusCode'), function($message) {
+        $this->mail->send('laravel-link-checker::crawlReport', compact('urlsGroupedByStatusCode'), function ($message) {
             $message->from(config('laravel-link-checker.reporters.mail.fromAddress'));
             $message->to(config('laravel-link-checker.reporters.mail.toAddress'));
-
         });
     }
 }

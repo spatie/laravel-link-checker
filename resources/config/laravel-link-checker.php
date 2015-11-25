@@ -9,15 +9,15 @@ return [
     'url' => '',
 
     /**
-     * The profile determines which urls needs to be checked.
+     * The profile determines which links needs to be checked.
      */
-    'defaultProfile' => Spatie\LinkChecker\CheckAllUrls::class,
+    'defaultProfile' => Spatie\LinkChecker\CheckAllLinks::class,
 
     /**
      * The reporter determine what needs to be done when the
-     * the crawler has visited an url.
+     * the crawler has visited a link.
      */
-    'defaultReporter' => Spatie\LinkChecker\Reporters\LogBrokenUrls::class,
+    'defaultReporter' => Spatie\LinkChecker\Reporters\LogBrokenLinks::class,
 
 
     /**
@@ -36,7 +36,7 @@ return [
             /**
              * The from address to be used by the mail reporter.
              */
-            'fromAddress'
+            'fromAddress' => '',
         ]
     ]
 ];

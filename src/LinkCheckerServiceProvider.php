@@ -11,13 +11,14 @@ class LinkCheckerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-     echo 'boot';
         $this->publishes([
             __DIR__.'/../resources/config/laravel-link-checker.php' => config_path('laravel-link-checker.php'),
         ], 'config');
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-link-checker');
-        
+
+        $this->app->bind('command.linkchecker:run', CheckLinksCommand::class);
+
         $this->commands(['command.linkchecker:run']);
     }
 
@@ -43,5 +44,4 @@ class LinkCheckerServiceProvider extends ServiceProvider
             'command.link-checker:run',
         ];
     }
-    
 }
