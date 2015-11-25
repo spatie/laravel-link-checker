@@ -187,7 +187,7 @@ cd  tests/server
 
 With the server running you can execute the tests
 ``` bash
-$ composer test
+composer test
 ```
 
 ## Contributing
