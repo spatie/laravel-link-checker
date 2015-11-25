@@ -2,19 +2,6 @@
 
 All Notable changes to `laravel-link-checker` will be documented in this file
 
-## NEXT - YYYY-MM-DD
+## 1.0.0 - 2015-11-25
 
-### Added
-- Nothing
-
-### Deprecated
-- Nothing
-
-### Fixed
-- Nothing
-
-### Removed
-- Nothing
-
-### Security
-- Nothing
+Initial release
