@@ -97,6 +97,14 @@ You can start checking all links by issuing this command:
 php artisan link-checker:run
 ```
 
+Want to run the crawler on a different url? No problem!
+
+```bash
+php artisan link-checker:run --url=https://laravel.com
+```
+
+
+### Schedule the command 
 To frequently check all links you can schedule the command:
 
 ```php
@@ -108,12 +116,6 @@ protected function schedule(Schedule $schedule)
     $schedule->command('link-checker:run')->sundays();
 }
 ``` 
-
-Want to run the crawler on a different url? No problem!
-
-```bash
-php artisan link-checker:run --url=https://laravel.com
-```
 
 ### Mail broken links
 By default the package will log all broken links. If you want to have them mailed instead, just specify
