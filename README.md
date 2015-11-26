@@ -10,6 +10,8 @@
 This package provides a command that can check all links on your laravel app. By default it will log all
 links that do not return a status code in de 200- or 300-range. There's also an option to mail broken links.
 
+If you like this package, take a look at [the other ones we have made](https://spatie.be/opensource/laravel).
+
 
 ## Install
 
