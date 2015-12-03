@@ -27,16 +27,16 @@ return [
 
 
         'mail' => [
-
-            /**
-             * The to address to be used by the mail reporter.
-             */
-            'toAddress' => '',
-
+            
             /**
              * The from address to be used by the mail reporter.
              */
             'fromAddress' => '',
+            
+            /**
+             * The to address to be used by the mail reporter.
+             */
+            'toAddress' => '',
         ]
     ]
 ];
