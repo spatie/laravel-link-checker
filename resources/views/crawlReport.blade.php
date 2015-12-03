@@ -1,4 +1,4 @@
-<h1>Found broken urls</h1>
+<h1>Found broken links</h1>
 
 @foreach($urlsGroupedByStatusCode as $statusCode => $urls)
 
