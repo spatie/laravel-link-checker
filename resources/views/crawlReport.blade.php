@@ -1,6 +1,17 @@
-<h2>Found broken urls</h2>
+<h1>Found broken urls</h1>
+
 @foreach($urlsGroupedByStatusCode as $statusCode => $urls)
-    @if (! starts_with($statusCode, [2,3]))
-        Crawled {{ count($urls) }} links with status code {{ $statusCode }}<br />
+
+    @if ($statusCode >= 400))
+    
+        Crawled {{ count($urls) }} link with status code {{ $statusCode }}:
+        
+        <ul>
+            @foreach($urls as $url)
+                <li>{!! link_to($url) !!} </li>
+            @endforeach
+        </ul>
+    
     @endif
+    
 @endforeach
