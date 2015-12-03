@@ -4,7 +4,7 @@
 
     @if ($statusCode >= 400))
     
-        Crawled {{ count($urls) }} link with status code {{ $statusCode }}:
+        Crawled {{ count($urls) }} link(s) with status code {{ $statusCode }}:
         
         <ul>
             @foreach($urls as $url)
