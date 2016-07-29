@@ -12,6 +12,13 @@ links that do not return a status code in the 200- or 300-range. There's also an
 
 If you like this package, take a look at [the other ones we have made](https://spatie.be/opensource/laravel).
 
+## Postcardware
+
+You're free to use this package (it's [MIT-licensed](LICENSE.md)), but if it makes it to your production environment you are required to send us a postcard from your hometown, mentioning which of our package(s) you are using.
+
+Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
+
+The best postcards will get published on the open source page on our website.
 
 ## Install
 
