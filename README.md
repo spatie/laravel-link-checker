@@ -58,42 +58,40 @@ This is the contents of the published config file:
 return [
 
     /**
-     * The base url of your app.  Leave this empty to use
+     * The base url of your app. Leave this empty to use
      * the url configured in config/app.php
      */
     'url' => '',
 
     /**
-     * The profile determines which links needs to be checked.
+     * The profile determines which links need to be checked.
      */
     'defaultProfile' => Spatie\LinkChecker\CheckAllLinks::class,
 
     /**
-     * The reporter determine what needs to be done when the
-     * the crawler has visited an link.
+     * The reporter determines what needs to be done when the
+     * the crawler has visited a link.
      */
     'defaultReporter' => Spatie\LinkChecker\Reporters\LogBrokenLinks::class,
-
 
     /**
      *  Here you can specify configuration regarding the used reporters
      */
     'reporters' => [
 
-
         'mail' => [
 
             /**
-             * The from address to be used by the mail reporter.
+             * The `from` address to be used by the mail reporter.
              */
             'fromAddress' => '',
             
             /**
-             * The to address to be used by the mail reporter.
+             * The `to` address to be used by the mail reporter.
              */
             'toAddress' => '',
-        ]
-    ]
+        ],
+    ],
 ];
 ```
 
@@ -133,7 +131,7 @@ By default the package will log all broken links. If you want to have them maile
 ## Creating your own crawl profile
 A crawlprofile determines which links need to be crawled. By default `Spatie\LinkChecker\CheckAllLinks` is used,
 which will check all links it finds. This behaviour can be customized by specify a class in the `defaultProfile`-option in the config file.
-The class must implemented the `Spatie\Crawler\CrawlProfile`-interface:
+The class must implement the `Spatie\Crawler\CrawlProfile`-interface:
 
 ```php
 
@@ -151,7 +149,7 @@ interface CrawlProfile
 ```
 
 ## Creating your own reporter
-A reporter determines what should be done when the a link is crawled and when the crawling process is finished.
+A reporter determines what should be done when a link is crawled and when the crawling process is finished.
 This package provides two reporters: `Spatie\LinkChecker\Reporters\LogBrokenLinks` and `Spatie\LinkChecker\Reporters\MailBrokenLinks`.
 You can create your own behaviour by making a class adhere to the `Spatie\Crawler\CrawlObserver`-interface:
 
@@ -180,7 +178,7 @@ interface CrawlObserver
 }
 ``` 
   
-To make it easier to create a reporter you can extend `Spatie\LinkChecker\Reporters\BaseReporter` which
+To make it easier to create a reporter, you can extend `Spatie\LinkChecker\Reporters\BaseReporter` which
 provides many useful methods.
 
 ## Change log
