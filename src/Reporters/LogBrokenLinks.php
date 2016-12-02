@@ -23,12 +23,13 @@ class LogBrokenLinks extends BaseReporter
     /**
      * Called when the crawler has crawled the given url.
      *
-     * @param \Spatie\Crawler\Url                      $url
+     * @param \Spatie\Crawler\Url $url
      * @param \Psr\Http\Message\ResponseInterface|null $response
+     * @param \Spatie\Crawler\Url $foundOnUrl
      *
      * @return string
      */
-    public function hasBeenCrawled(Url $url, $response)
+    public function hasBeenCrawled(Url $url, $response, Url $foundOnUrl = null)
     {
         $statusCode = parent::hasBeenCrawled($url, $response);
 
@@ -38,7 +39,13 @@ class LogBrokenLinks extends BaseReporter
 
         $reason = $response ? $response->getReasonPhrase() : '';
 
-        $this->log->warning("{$statusCode} {$reason} - {$url}");
+        $logMessage = "{$statusCode} {$reason} - {$url}";
+
+        if ($foundOnUrl) {
+            $logMessage .= " (found on {$foundOnUrl}";
+        }
+
+        $this->log->warning($logMessage);
     }
 
     /**
