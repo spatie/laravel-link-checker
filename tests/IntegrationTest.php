@@ -48,8 +48,8 @@ abstract class IntegrationTest extends Orchestra
         $app['config']->set('laravel-link-checker.url', $this->appUrl);
         $app['config']->set('laravel-link-checker.url', $this->appUrl);
 
-        $app['config']->set('laravel-link-checker.reporters.mail.fromAddress', 'technical@spatie.be');
-        $app['config']->set('laravel-link-checker.reporters.mail.toAddress', 'technical@spatie.be');
+        $app['config']->set('laravel-link-checker.reporters.mail.from_address', 'technical@spatie.be');
+        $app['config']->set('laravel-link-checker.reporters.mail.to_address', 'technical@spatie.be');
 
         $app['config']->set('app.key', 'SomeRandomString');
         $app['config']->set('app.cipher', MCRYPT_RIJNDAEL_128);

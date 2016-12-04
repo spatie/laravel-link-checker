@@ -66,13 +66,19 @@ return [
     /**
      * The profile determines which links need to be checked.
      */
-    'defaultProfile' => Spatie\LinkChecker\CheckAllLinks::class,
+    'default_profile' => Spatie\LinkChecker\CheckAllLinks::class,
 
     /**
      * The reporter determines what needs to be done when the
      * the crawler has visited a link.
      */
-    'defaultReporter' => Spatie\LinkChecker\Reporters\LogBrokenLinks::class,
+    'default_reporter' => Spatie\LinkChecker\Reporters\LogBrokenLinks::class,
+    
+    /**
+     * To speed up the checking process we'll fire off requests concurrently. Here
+     * you can change the amount of concurrent requests.
+     */
+    'concurrency' => 10
 
     /**
      *  Here you can specify configuration regarding the used reporters
@@ -84,12 +90,12 @@ return [
             /**
              * The `from` address to be used by the mail reporter.
              */
-            'fromAddress' => '',
+            'from_address' => '',
             
             /**
              * The `to` address to be used by the mail reporter.
              */
-            'toAddress' => '',
+            'to_address' => '',
         ],
     ],
 ];
@@ -126,11 +132,11 @@ protected function schedule(Schedule $schedule)
 
 ### Mail broken links
 By default the package will log all broken links. If you want to have them mailed instead, just specify
-`Spatie\LinkChecker\Reporters\MailBrokenLinks` in the `defaultReporter` option in the config file.
+`Spatie\LinkChecker\Reporters\MailBrokenLinks` in the `default_reporter` option in the config file.
 
 ## Creating your own crawl profile
 A crawlprofile determines which links need to be crawled. By default `Spatie\LinkChecker\CheckAllLinks` is used,
-which will check all links it finds. This behaviour can be customized by specify a class in the `defaultProfile`-option in the config file.
+which will check all links it finds. This behaviour can be customized by specify a class in the `default_profile`-option in the config file.
 The class must implement the `Spatie\Crawler\CrawlProfile`-interface:
 
 ```php

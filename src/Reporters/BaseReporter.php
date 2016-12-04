@@ -28,10 +28,11 @@ abstract class BaseReporter implements CrawlObserver
      *
      * @param \Spatie\Crawler\Url                      $url
      * @param \Psr\Http\Message\ResponseInterface|null $response
+     * @param \Spatie\Crawler\Url $foundOnUrl
      *
      * @return string
      */
-    public function hasBeenCrawled(Url $url, $response)
+    public function hasBeenCrawled(Url $url, $response, Url $foundOnUrl = null)
     {
         $statusCode = $response ? $response->getStatusCode() : static::UNRESPONSIVE_HOST;
 
@@ -40,25 +41,19 @@ abstract class BaseReporter implements CrawlObserver
         return $statusCode;
     }
 
-    /**
+    /*
      * Determine if the statuscode concerns a successful or
      * redirect response.
-     *
-     * @param int $statusCode
-     *
-     * @return bool
      */
-    protected function isSuccessOrRedirect($statusCode)
+    protected function isSuccessOrRedirect(int $statusCode): bool
     {
         return starts_with($statusCode, ['2', '3']);
     }
 
     /**
      * Determine if the crawler saw some bad urls.
-     *
-     * @return bool
      */
-    protected function crawledBadUrls()
+    protected function crawledBadUrls(): bool
     {
         return collect($this->urlsGroupedByStatusCode)->keys()->filter(function ($statusCode) {
             return !$this->isSuccessOrRedirect($statusCode);
