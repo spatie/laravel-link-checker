@@ -22,7 +22,7 @@
     "require": {
         "php" : "^7.0",
         "illuminate/support": "^5.3",
-        "spatie/crawler": "v2.x-dev"
+        "spatie/crawler": "^2.0.2"
 
     },
     "require-dev": {
