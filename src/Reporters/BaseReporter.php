@@ -44,8 +44,11 @@ abstract class BaseReporter implements CrawlObserver
     /*
      * Determine if the statuscode concerns a successful or
      * redirect response.
+     *
+     * @param int|string $statusCode
+     * @return bool
      */
-    protected function isSuccessOrRedirect(int $statusCode): bool
+    protected function isSuccessOrRedirect($statusCode): bool
     {
         return starts_with($statusCode, ['2', '3']);
     }

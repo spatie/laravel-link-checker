@@ -2,6 +2,10 @@
 
 All Notable changes to `laravel-link-checker` will be documented in this file
 
+## unreleased
+
+- remove typehint from `isSuccessOrRedirect`
+
 ## 1.0.2 - 2015-12-03
 
 - improve speed by crawling the app with multiple concurrent connections
