@@ -2,6 +2,11 @@
 
 All Notable changes to `laravel-link-checker` will be documented in this file
 
+
+## 1.0.4 - 2017-01-19
+
+- remove another typehint on a protected method
+
 ## 1.0.3 - 2017-01-19
 
 - remove typehint from `isSuccessOrRedirect`
