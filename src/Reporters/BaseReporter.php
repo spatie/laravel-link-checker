@@ -41,7 +41,7 @@ abstract class BaseReporter implements CrawlObserver
         return $statusCode;
     }
 
-    /*
+    /**
      * Determine if the statuscode concerns a successful or
      * redirect response.
      *
