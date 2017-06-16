@@ -41,5 +41,12 @@
     },
     "scripts": {
         "test": "phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Spatie\\LinkChecker\\LinkCheckerServiceProvider"
+            ]
+        }
     }
 }
