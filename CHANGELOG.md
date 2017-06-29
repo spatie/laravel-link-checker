@@ -2,6 +2,9 @@
 
 All Notable changes to `laravel-link-checker` will be documented in this file
 
+## 1.0.5 - 2017-06-29
+
+- remove hidden `laravel-collective/html` dependency 
 
 ## 1.0.4 - 2017-01-19
 
