@@ -1,6 +1,6 @@
 # Changelog
 
-All Notable changes to `laravel-link-checker` will be documented in this file
+All notable changes to `laravel-link-checker` will be documented in this file
 
 ## 1.0.5 - 2017-06-29
 
