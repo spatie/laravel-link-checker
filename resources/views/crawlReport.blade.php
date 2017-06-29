@@ -8,7 +8,7 @@
         
         <ul>
             @foreach($urls as $url)
-                <li>{!! link_to($url) !!} </li>
+                <li><a href="{{ url }}" ></a></li>
             @endforeach
         </ul>
     
