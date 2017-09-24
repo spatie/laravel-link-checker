@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-link-checker` will be documented in this file
 
+## 1.1.0 - 2017-06-29
+
+- add autodiscovery for Laravel 5.5
+
 ## 1.0.5 - 2017-06-29
 
 - remove hidden `laravel-collective/html` dependency 
