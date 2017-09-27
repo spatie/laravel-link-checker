@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-link-checker` will be documented in this file
 
-# 2.1.0 - 2017-09-29
+## 2.1.0 - 2017-09-29
 - fix incorrect tagged versions
 - improve speed by crawling the app with multiple concurrent connections
 - add autodiscovery for Laravel 5.5
