@@ -41,6 +41,12 @@ return [
              * The to address to be used by the mail reporter.
              */
             'to_address' => '',
+
+            /**
+             * The subject line to be used by the mail reporter.
+             */
+            'subject' => '',
+
         ]
     ]
 ];
