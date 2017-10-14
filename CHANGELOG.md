@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-link-checker` will be documented in this file
 
+## 2.2.1 - 2017-10-14
+- permissions fix
+
 ## 2.2.0 - 2017-09-29
 - add subject line to email
 
