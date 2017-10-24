@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-link-checker` will be documented in this file
 
+## 2.2.2 - 2017-10-24
+- fix mail
+
 ## 2.2.1 - 2017-10-14
 - permissions fix
 
