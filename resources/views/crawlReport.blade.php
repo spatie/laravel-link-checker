@@ -2,16 +2,18 @@
 
 @foreach($urlsGroupedByStatusCode as $statusCode => $urls)
 
-    @if ($statusCode >= 400))
+    Crawled {{ count($urls) }} link(s) with status code {{ $statusCode }}:
+
+    <ul>
     
-        Crawled {{ count($urls) }} link(s) with status code {{ $statusCode }}:
+        @foreach($urls as $url)
+            <li>
+                <a href="{{ $url->scheme.'://'.$url->host.''.$url->path }}">
+                    {{ $url->host.''.$url->path }}
+                </a>
+            </li>
+        @endforeach
         
-        <ul>
-            @foreach($urls as $url)
-                <li><a href="{{ url }}" ></a></li>
-            @endforeach
-        </ul>
-    
-    @endif
+    </ul>
     
 @endforeach
