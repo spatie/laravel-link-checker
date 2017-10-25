@@ -13,7 +13,13 @@ abstract class BaseReporter implements CrawlObserver
      * @var array
      */
     protected $urlsGroupedByStatusCode = [];
+    
+    /**
+     * @var array
+     */
+    protected $urlFoundOnPages = [];
 
+    
     /**
      * Called when the crawler will crawl the url.
      *
@@ -37,7 +43,11 @@ abstract class BaseReporter implements CrawlObserver
         $statusCode = $response ? $response->getStatusCode() : static::UNRESPONSIVE_HOST;
 
         $this->urlsGroupedByStatusCode[$statusCode][] = $url;
-
+        
+        if(!is_null($foundOnUrl)) {
+            $this->urlFoundOnPages[$url][] = $foundOnUrl;
+        }
+        
         return $statusCode;
     }
 

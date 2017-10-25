@@ -31,8 +31,9 @@ class MailBrokenLinks extends BaseReporter
         }
 
         $urlsGroupedByStatusCode = $this->urlsGroupedByStatusCode;
+        $urlFoundOnPages = $this->urlFoundOnPages;
 
-        $this->mail->send('laravel-link-checker::crawlReport', compact('urlsGroupedByStatusCode'), function ($message) {
+        $this->mail->send('laravel-link-checker::crawlReport', compact('urlsGroupedByStatusCode', 'urlFoundOnPages'), function ($message) {
             $message->from(config('laravel-link-checker.reporters.mail.from_address'));
             $message->to(config('laravel-link-checker.reporters.mail.to_address'));
             $message->subject(config('laravel-link-checker.reporters.mail.subject'));
