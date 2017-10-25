@@ -11,6 +11,13 @@
                 <a href="{{ $url->scheme.'://'.$url->host.''.$url->path }}">
                     {{ $url->host.''.$url->path }}
                 </a>
+                @if(!empty($urlFoundOnPages[$url->scheme.'://'.$url->host.''.$url->path]))
+                    <ul>
+                        @foreach($urlFoundOnPages[$url->scheme.'://'.$url->host.''.$url->path] as $foundOn)
+                            <li>{{ $foundOn }}</li>
+                        @endforeach
+                    </ul>
+                @endif
             </li>
         @endforeach
         
