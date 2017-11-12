@@ -123,7 +123,7 @@ To frequently check all links you can schedule the command:
 protected function schedule(Schedule $schedule)
 {
     ...
-    $schedule->command('link-checker:run')->sundays();
+    $schedule->command('link-checker:run')->sundays()->daily();
 }
 ``` 
 
