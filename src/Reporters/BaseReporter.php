@@ -36,7 +36,9 @@ abstract class BaseReporter implements CrawlObserver
     {
         $statusCode = $response ? $response->getStatusCode() : static::UNRESPONSIVE_HOST;
 
-        $this->urlsGroupedByStatusCode[$statusCode][] = $url;
+        if (!$this->excludeStatusCode($statusCode)) {
+            $this->urlsGroupedByStatusCode[$statusCode][] = $url;
+        }
 
         return $statusCode;
     }
@@ -61,5 +63,17 @@ abstract class BaseReporter implements CrawlObserver
         return collect($this->urlsGroupedByStatusCode)->keys()->filter(function ($statusCode) {
             return !$this->isSuccessOrRedirect($statusCode);
         })->count() > 0;
+    }
+
+    /**
+     * Determine if the statuscode should be excluded'
+     * from the reporter.
+     *
+     * @param int|string $statusCode
+     * @return bool
+     */
+    protected function excludeStatusCode($statusCode): bool
+    {
+        return in_array($statusCode, config('laravel-link-checker.reporters.exclude_status_codes', []));
     }
 }
