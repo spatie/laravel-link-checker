@@ -11,6 +11,10 @@
                 <a href="{{ $url->scheme.'://'.$url->host.''.$url->path }}">
                     {{ $url->host.''.$url->path }}
                 </a>
+
+                @if($url->foundOnUrl)
+                    (found on <a href="{{ $url->foundOnUrl }}">{{ $url->foundOnUrl }}</a>)
+                @endif
             </li>
         @endforeach
         
