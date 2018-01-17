@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-link-checker` will be documented in this file
 
+## 2.3.0 - 2018-01-17
+- add "found on" in the `MailBrokenLinks` reporter
+
 ## 2.2.2 - 2017-10-24
 - fix mail
 
