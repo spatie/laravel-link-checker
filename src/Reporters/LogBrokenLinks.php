@@ -33,7 +33,11 @@ class LogBrokenLinks extends BaseReporter
     {
         $statusCode = parent::hasBeenCrawled($url, $response);
 
-        if ($this->isSuccessOrRedirect($statusCode) || $this->excludeStatusCode($statusCode)) {
+        if ($this->isSuccessOrRedirect($statusCode)) {
+            return;
+        }
+
+        if ($this->excludeStatusCode($statusCode)) {
             return;
         }
 
