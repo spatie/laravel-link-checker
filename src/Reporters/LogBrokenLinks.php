@@ -37,7 +37,7 @@ class LogBrokenLinks extends BaseReporter
             return;
         }
 
-        if ($this->excludeStatusCode($statusCode)) {
+        if ($this->isExcludedStatusCode($statusCode)) {
             return;
         }
 
