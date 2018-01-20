@@ -47,6 +47,13 @@ return [
              */
             'subject' => '',
 
-        ]
+        ],
+
+        /*
+         * If you wish to exclude status codes from the reporters,
+         * you can select the status codes that you wish to
+         * exclude in the array below like: [200, 302]
+         */
+        'exclude_status_codes' => [],
     ]
 ];

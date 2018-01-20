@@ -37,6 +37,10 @@ class LogBrokenLinks extends BaseReporter
             return;
         }
 
+        if ($this->excludeStatusCode($statusCode)) {
+            return;
+        }
+
         $reason = $response ? $response->getReasonPhrase() : '';
 
         $logMessage = "{$statusCode} {$reason} - {$url}";

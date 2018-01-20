@@ -76,6 +76,16 @@ abstract class IntegrationTest extends Orchestra
     }
 
     /**
+     * Determine if log does not contains the given text after the last mark.
+     *
+     * @param $text
+     */
+    public function assertLogNotContainsTextAfterLastMarker($text)
+    {
+        $this->assertNotContains($text, $this->getLogContentsAfterLastMarker());
+    }
+
+    /**
      * Get the contents of the log after the last marker.
      *
      * @return string
