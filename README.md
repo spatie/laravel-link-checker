@@ -7,7 +7,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-link-checker.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-link-checker)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-link-checker.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-link-checker)
 
-This package provides a command that can check all links on your laravel app. By default it will log all
+This package provides a command that can check all links on your laravel app. By default, it will log all
 links that do not return a status code in the 200- or 300-range. There's also an option to mail broken links.
 
 If you like this package, take a look at [the other ones we have made](https://spatie.be/opensource/laravel).
@@ -140,7 +140,7 @@ By default the package will log all broken links. If you want to have them maile
 
 ## Creating your own crawl profile
 A crawlprofile determines which links need to be crawled. By default `Spatie\LinkChecker\CheckAllLinks` is used,
-which will check all links it finds. This behaviour can be customized by specify a class in the `default_profile`-option in the config file.
+which will check all links it finds. This behaviour can be customized by specifying a class in the `default_profile`-option in the config file.
 The class must implement the `Spatie\Crawler\CrawlProfile`-interface:
 
 ```php
@@ -198,7 +198,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 ## Testing
 
 
-First start the test server in a seperate terminal session:
+First, start the test server in a separate terminal session:
 ``` bash
 cd tests/server
 ./start_server.sh
