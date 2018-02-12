@@ -2,20 +2,14 @@
 
 namespace Spatie\LinkChecker\Reporters;
 
-use Illuminate\Contracts\Logging\Log;
-use Spatie\Crawler\Url;
+use Psr\Http\Message\UriInterface;
+use Psr\Log\LoggerInterface;
 
 class LogBrokenLinks extends BaseReporter
 {
-    /**
-     * @var \Illuminate\Contracts\Logging\Log
-     */
     protected $log;
 
-    /**
-     * @param \Illuminate\Contracts\Logging\Log $log
-     */
-    public function __construct(Log $log)
+    public function __construct(LoggerInterface $log)
     {
         $this->log = $log;
     }
@@ -23,13 +17,13 @@ class LogBrokenLinks extends BaseReporter
     /**
      * Called when the crawler has crawled the given url.
      *
-     * @param \Spatie\Crawler\Url $url
+     * @param \Psr\Http\Message\UriInterface           $url
      * @param \Psr\Http\Message\ResponseInterface|null $response
-     * @param \Spatie\Crawler\Url $foundOnUrl
+     * @param \Psr\Http\Message\UriInterface           $foundOnUrl
      *
      * @return string
      */
-    public function hasBeenCrawled(Url $url, $response, Url $foundOnUrl = null)
+    public function hasBeenCrawled(UriInterface $url, $response, ?UriInterface $foundOnUrl = null)
     {
         $statusCode = parent::hasBeenCrawled($url, $response);
 

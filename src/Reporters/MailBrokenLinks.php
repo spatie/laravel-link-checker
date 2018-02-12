@@ -2,8 +2,8 @@
 
 namespace Spatie\LinkChecker\Reporters;
 
-use Spatie\Crawler\Url;
 use Illuminate\Contracts\Mail\Mailer;
+use Psr\Http\Message\UriInterface;
 
 class MailBrokenLinks extends BaseReporter
 {
@@ -25,13 +25,13 @@ class MailBrokenLinks extends BaseReporter
     /**
      * Called when the crawler has crawled the given url.
      *
-     * @param \Spatie\Crawler\Url                      $url
+     * @param \Psr\Http\Message\UriInterface           $url
      * @param \Psr\Http\Message\ResponseInterface|null $response
-     * @param \Spatie\Crawler\Url $foundOnUrl
+     * @param \Psr\Http\Message\UriInterface           $foundOnUrl
      *
      * @return string
      */
-    public function hasBeenCrawled(Url $url, $response, Url $foundOnUrl = null)
+    public function hasBeenCrawled(UriInterface $url, $response, ?UriInterface $foundOnUrl = null)
     {
         $url->foundOnUrl = $foundOnUrl;
 

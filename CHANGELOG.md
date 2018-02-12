@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-link-checker` will be documented in this file
 
+## 3.0.0 - 2018-02-12
+
+- Update to `spatie/crawler ^3.0`
+- Support Laravel 5.5 and 5.6
+
 ## 2.4.0 - 2018-01-17
 - add `exclude_status_codes`
 

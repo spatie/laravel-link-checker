@@ -2,7 +2,7 @@
 
 namespace Spatie\LinkChecker\Test;
 
-use Log;
+use Illuminate\Support\Facades\Log;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Crawler\Crawler;
 use Spatie\LinkChecker\LinkCheckerServiceProvider;
@@ -52,7 +52,12 @@ abstract class IntegrationTest extends Orchestra
         $app['config']->set('laravel-link-checker.reporters.mail.to_address', 'technical@spatie.be');
 
         $app['config']->set('app.key', 'SomeRandomString');
-        $app['config']->set('app.cipher', MCRYPT_RIJNDAEL_128);
+
+        if (defined('OPENSSL_CIPHER_AES_256_CBC')) {
+            $app['config']->set('app.cipher', OPENSSL_CIPHER_AES_256_CBC);
+        } else {
+            $app['config']->set('app.cipher', MCRYPT_RIJNDAEL_128);
+        }
     }
 
     /**

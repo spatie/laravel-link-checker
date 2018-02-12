@@ -2,8 +2,8 @@
 
 namespace Spatie\LinkChecker\Reporters;
 
+use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\CrawlObserver;
-use Spatie\Crawler\Url;
 
 abstract class BaseReporter implements CrawlObserver
 {
@@ -17,22 +17,22 @@ abstract class BaseReporter implements CrawlObserver
     /**
      * Called when the crawler will crawl the url.
      *
-     * @param \Spatie\Crawler\Url $url
+     * @param \Psr\Http\Message\UriInterface $url
      */
-    public function willCrawl(Url $url)
+    public function willCrawl(UriInterface $url)
     {
     }
 
     /**
      * Called when the crawler has crawled the given url.
      *
-     * @param \Spatie\Crawler\Url                      $url
+     * @param \Psr\Http\Message\UriInterface           $url
      * @param \Psr\Http\Message\ResponseInterface|null $response
-     * @param \Spatie\Crawler\Url $foundOnUrl
+     * @param \Psr\Http\Message\UriInterface           $foundOnUrl
      *
      * @return string
      */
-    public function hasBeenCrawled(Url $url, $response, Url $foundOnUrl = null)
+    public function hasBeenCrawled(UriInterface $url, $response, ?UriInterface $foundOnUrl = null)
     {
         $statusCode = $response ? $response->getStatusCode() : static::UNRESPONSIVE_HOST;
 
