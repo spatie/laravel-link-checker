@@ -141,50 +141,71 @@ By default the package will log all broken links. If you want to have them maile
 ## Creating your own crawl profile
 A crawlprofile determines which links need to be crawled. By default `Spatie\LinkChecker\CheckAllLinks` is used,
 which will check all links it finds. This behaviour can be customized by specifying a class in the `default_profile`-option in the config file.
-The class must implement the `Spatie\Crawler\CrawlProfile`-interface:
+The class must extend the abstract class `Spatie\Crawler\CrawlProfile`:
 
 ```php
-
-interface CrawlProfile
+abstract class CrawlProfile
 {
     /**
      * Determine if the given url should be crawled.
      *
-     * @param \Spatie\Crawler\Url $url
+     * @param \Psr\Http\Message\UriInterface $url
      *
      * @return bool
      */
-    public function shouldCrawl(Url $url);
+    abstract public function shouldCrawl(UriInterface $url): bool;
 }
 ```
 
 ## Creating your own reporter
 A reporter determines what should be done when a link is crawled and when the crawling process is finished.
 This package provides two reporters: `Spatie\LinkChecker\Reporters\LogBrokenLinks` and `Spatie\LinkChecker\Reporters\MailBrokenLinks`.
-You can create your own behaviour by making a class adhere to the `Spatie\Crawler\CrawlObserver`-interface:
+You can create your own behaviour by making a class extend the abstract class `Spatie\Crawler\CrawlObserver`:
 
 ```php
-interface CrawlObserver
+abstract class CrawlObserver
 {
     /**
      * Called when the crawler will crawl the url.
      *
-     * @param \Spatie\Crawler\Url $url
+     * @param \Psr\Http\Message\UriInterface $url
      */
-    public function willCrawl(Url $url);
+    public function willCrawl(UriInterface $url)
+    {
+    }
 
     /**
-     * Called when the crawler has crawled the given url.
+     * Called when the crawler has crawled the given url successfully.
      *
-     * @param \Spatie\Crawler\Url                      $url
-     * @param \Psr\Http\Message\ResponseInterface|null $response
+     * @param \Psr\Http\Message\UriInterface $url
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \Psr\Http\Message\UriInterface|null $foundOnUrl
      */
-    public function hasBeenCrawled(Url $url, $response);
+    abstract public function crawled(
+        UriInterface $url,
+        ResponseInterface $response,
+        ?UriInterface $foundOnUrl = null
+    );
+
+    /**
+     * Called when the crawler had a problem crawling the given url.
+     *
+     * @param \Psr\Http\Message\UriInterface $url
+     * @param \GuzzleHttp\Exception\RequestException $requestException
+     * @param \Psr\Http\Message\UriInterface|null $foundOnUrl
+     */
+    abstract public function crawlFailed(
+        UriInterface $url,
+        RequestException $requestException,
+        ?UriInterface $foundOnUrl = null
+    );
 
     /**
      * Called when the crawl has ended.
      */
-    public function finishedCrawling();
+    public function finishedCrawling()
+    {
+    }
 }
 ``` 
   
@@ -196,7 +217,6 @@ provides many useful methods.
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
 ## Testing
-
 
 First, start the test server in a separate terminal session:
 ``` bash

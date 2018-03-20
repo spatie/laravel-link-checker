@@ -2,7 +2,9 @@
 
 namespace Spatie\LinkChecker\Reporters;
 
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Mail\Mailer;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
 class MailBrokenLinks extends BaseReporter
@@ -23,22 +25,6 @@ class MailBrokenLinks extends BaseReporter
     }
 
     /**
-     * Called when the crawler has crawled the given url.
-     *
-     * @param \Psr\Http\Message\UriInterface           $url
-     * @param \Psr\Http\Message\ResponseInterface|null $response
-     * @param \Psr\Http\Message\UriInterface           $foundOnUrl
-     *
-     * @return string
-     */
-    public function hasBeenCrawled(UriInterface $url, $response, ?UriInterface $foundOnUrl = null)
-    {
-        $url->foundOnUrl = $foundOnUrl;
-
-        return parent::hasBeenCrawled($url, $response, $foundOnUrl);
-    }
-
-    /**
      * Called when the crawl has ended.
      */
     public function finishedCrawling()
@@ -54,5 +40,37 @@ class MailBrokenLinks extends BaseReporter
             $message->to(config('laravel-link-checker.reporters.mail.to_address'));
             $message->subject(config('laravel-link-checker.reporters.mail.subject'));
         });
+    }
+
+    /**
+     * Called when the crawler has crawled the given url successfully.
+     *
+     * @param \Psr\Http\Message\UriInterface      $url
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \Psr\Http\Message\UriInterface|null $foundOnUrl
+     */
+    public function crawled(
+        UriInterface $url,
+        ResponseInterface $response,
+        ?UriInterface $foundOnUrl = null
+    ) {
+        $url->foundOnUrl = $foundOnUrl;
+
+        return parent::crawled($url, $response, $foundOnUrl);
+    }
+
+    /**
+     * Called when the crawler had a problem crawling the given url.
+     *
+     * @param \Psr\Http\Message\UriInterface         $url
+     * @param \GuzzleHttp\Exception\RequestException $requestException
+     * @param \Psr\Http\Message\UriInterface|null    $foundOnUrl
+     */
+    public function crawlFailed(
+        UriInterface $url,
+        RequestException $requestException,
+        ?UriInterface $foundOnUrl = null
+    ) {
+        return;
     }
 }

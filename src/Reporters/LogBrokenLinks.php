@@ -2,6 +2,8 @@
 
 namespace Spatie\LinkChecker\Reporters;
 
+use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Psr\Log\LoggerInterface;
 
@@ -12,38 +14,6 @@ class LogBrokenLinks extends BaseReporter
     public function __construct(LoggerInterface $log)
     {
         $this->log = $log;
-    }
-
-    /**
-     * Called when the crawler has crawled the given url.
-     *
-     * @param \Psr\Http\Message\UriInterface           $url
-     * @param \Psr\Http\Message\ResponseInterface|null $response
-     * @param \Psr\Http\Message\UriInterface           $foundOnUrl
-     *
-     * @return string
-     */
-    public function hasBeenCrawled(UriInterface $url, $response, ?UriInterface $foundOnUrl = null)
-    {
-        $statusCode = parent::hasBeenCrawled($url, $response);
-
-        if ($this->isSuccessOrRedirect($statusCode)) {
-            return;
-        }
-
-        if ($this->isExcludedStatusCode($statusCode)) {
-            return;
-        }
-
-        $reason = $response ? $response->getReasonPhrase() : '';
-
-        $logMessage = "{$statusCode} {$reason} - {$url}";
-
-        if ($foundOnUrl) {
-            $logMessage .= " (found on {$foundOnUrl}";
-        }
-
-        $this->log->warning($logMessage);
     }
 
     /**
@@ -70,5 +40,48 @@ class LogBrokenLinks extends BaseReporter
                 $this->log->warning("Crawled {$count} url(s) with statuscode {$statusCode}");
 
             });
+    }
+
+    /**
+     * Called when the crawler had a problem crawling the given url.
+     *
+     * @param \Psr\Http\Message\UriInterface         $url
+     * @param \GuzzleHttp\Exception\RequestException $requestException
+     * @param \Psr\Http\Message\UriInterface|null    $foundOnUrl
+     */
+    public function crawlFailed(
+        UriInterface $url,
+        RequestException $requestException,
+        ?UriInterface $foundOnUrl = null
+    ) {
+        parent::crawlFailed($url, $requestException, $foundOnUrl);
+
+        $statusCode = $requestException->getCode();
+
+        if ($this->isExcludedStatusCode($statusCode)) {
+            return;
+        }
+
+        $this->log->warning(
+            $this->formatLogMessage($url, $requestException, $foundOnUrl)
+        );
+    }
+
+    protected function formatLogMessage(
+        UriInterface $url,
+        RequestException $requestException,
+        ?UriInterface $foundOnUrl = null
+    ): string {
+        $statusCode = $requestException->getCode();
+
+        $reason = $requestException->getMessage();
+
+        $logMessage = "{$statusCode} {$reason} - {$url}";
+
+        if ($foundOnUrl) {
+            $logMessage .= " (found on {$foundOnUrl}";
+        }
+
+        return $logMessage;
     }
 }
