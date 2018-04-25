@@ -30,7 +30,7 @@ class CheckLinksCommand extends Command
 
     public function handle()
     {
-        Crawler::create()
+        Crawler::create(config('laravel-link-checker.client_options', []))
             ->setCrawlProfile($this->getProfile())
             ->setCrawlObserver($this->getReporter())
             ->setConcurrency($this->getConcurrency())
@@ -57,6 +57,7 @@ class CheckLinksCommand extends Command
 
         return 10;
     }
+
     /**
      * Determine the url to be crawled.
      *
