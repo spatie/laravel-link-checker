@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-link-checker` will be documented in this file
 
+## 4.1.0 - 2018-04-26
+
+- add client options to config file
+
 ## 4.0.0 - 2018-03-20
 
 - Update to `spatie/crawler ^4.0`
