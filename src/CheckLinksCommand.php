@@ -30,12 +30,32 @@ class CheckLinksCommand extends Command
 
     public function handle()
     {
-        Crawler::create()
+        Crawler::create(config('laravel-link-checker.client_options', []))
             ->setCrawlProfile($this->getProfile())
             ->setCrawlObserver($this->getReporter())
+            ->setConcurrency($this->getConcurrency())
             ->startCrawling($this->getUrlToBeCrawled());
 
         $this->info('All done!');
+    }
+
+    /**
+     * Returns concurrency. If not found, simply returns a default value like
+     * 10 (default from spatie/crawler).
+     *
+     * @return int
+     */
+    protected function getConcurrency(): int
+    {
+        if ($this->option('concurrency') !== null) {
+            return $this->option('concurrency');
+        }
+
+        if (config('laravel-link-checker.concurrency') != '') {
+            return config('laravel-link-checker.concurrency');
+        }
+
+        return 10;
     }
 
     /**
