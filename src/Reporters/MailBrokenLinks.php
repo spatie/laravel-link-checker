@@ -71,6 +71,8 @@ class MailBrokenLinks extends BaseReporter
         RequestException $requestException,
         ?UriInterface $foundOnUrl = null
     ) {
-        return;
+        $url->foundOnUrl = $foundOnUrl;
+
+        return parent::crawlFailed($url, $requestException, $foundOnUrl);
     }
 }
