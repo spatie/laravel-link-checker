@@ -8,8 +8,8 @@
     
         @foreach($urls as $url)
             <li>
-                <a href="{{ $url->scheme.'://'.$url->host.''.$url->path }}">
-                    {{ $url->host.''.$url->path }}
+                <a href="{{ $url->getScheme().'://'.$url->getHost().''.$url->getPath() }}">
+                    {{ $url->getHost().''.$url->getPath() }}
                 </a>
 
                 @if($url->foundOnUrl)
