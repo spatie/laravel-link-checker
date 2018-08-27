@@ -2,10 +2,10 @@
 
 namespace Spatie\LinkChecker\Reporters;
 
-use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\UriInterface;
 use Illuminate\Contracts\Mail\Mailer;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\UriInterface;
+use GuzzleHttp\Exception\RequestException;
 
 class MailBrokenLinks extends BaseReporter
 {
@@ -29,7 +29,7 @@ class MailBrokenLinks extends BaseReporter
      */
     public function finishedCrawling()
     {
-        if (!$this->crawledBadUrls()) {
+        if (! $this->crawledBadUrls()) {
             return;
         }
 

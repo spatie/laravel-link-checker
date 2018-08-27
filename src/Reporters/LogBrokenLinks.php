@@ -2,10 +2,9 @@
 
 namespace Spatie\LinkChecker\Reporters;
 
-use GuzzleHttp\Exception\RequestException;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\UriInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Http\Message\UriInterface;
+use GuzzleHttp\Exception\RequestException;
 
 class LogBrokenLinks extends BaseReporter
 {
@@ -38,7 +37,6 @@ class LogBrokenLinks extends BaseReporter
                 }
 
                 $this->log->warning("Crawled {$count} url(s) with statuscode {$statusCode}");
-
             });
     }
 

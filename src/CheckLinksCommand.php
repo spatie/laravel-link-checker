@@ -3,10 +3,10 @@
 namespace Spatie\LinkChecker;
 
 use Exception;
-use Illuminate\Console\Command;
 use Spatie\Crawler\Crawler;
-use Spatie\Crawler\CrawlObserver;
+use Illuminate\Console\Command;
 use Spatie\Crawler\CrawlProfile;
+use Spatie\Crawler\CrawlObserver;
 
 class CheckLinksCommand extends Command
 {
@@ -67,7 +67,7 @@ class CheckLinksCommand extends Command
      */
     protected function getUrlToBeCrawled()
     {
-        if (!is_null($this->option('url'))) {
+        if (! is_null($this->option('url'))) {
             return $this->option('url');
         }
 
@@ -87,7 +87,7 @@ class CheckLinksCommand extends Command
      */
     protected function getProfile(): CrawlProfile
     {
-        if (!is_null($this->option('profile'))) {
+        if (! is_null($this->option('profile'))) {
             return app($this->option('profile'));
         }
 
@@ -103,7 +103,7 @@ class CheckLinksCommand extends Command
      */
     protected function getReporter(): CrawlObserver
     {
-        if (!is_null($this->option('reporter'))) {
+        if (! is_null($this->option('reporter'))) {
             return app($this->option('reporter'));
         }
 

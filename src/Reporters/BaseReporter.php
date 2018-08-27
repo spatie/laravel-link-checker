@@ -2,10 +2,10 @@
 
 namespace Spatie\LinkChecker\Reporters;
 
-use GuzzleHttp\Exception\RequestException;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\CrawlObserver;
+use Psr\Http\Message\UriInterface;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\RequestException;
 
 abstract class BaseReporter extends CrawlObserver
 {
@@ -32,7 +32,7 @@ abstract class BaseReporter extends CrawlObserver
     ) {
         $statusCode = $response->getStatusCode();
 
-        if (!$this->isExcludedStatusCode($statusCode)) {
+        if (! $this->isExcludedStatusCode($statusCode)) {
             $this->urlsGroupedByStatusCode[$statusCode][] = $url;
         }
 
@@ -53,7 +53,7 @@ abstract class BaseReporter extends CrawlObserver
     ) {
         $statusCode = $requestException->getCode();
 
-        if (!$this->isExcludedStatusCode($statusCode)) {
+        if (! $this->isExcludedStatusCode($statusCode)) {
             $this->urlsGroupedByStatusCode[$statusCode][] = $url;
         }
 
@@ -78,7 +78,7 @@ abstract class BaseReporter extends CrawlObserver
     protected function crawledBadUrls(): bool
     {
         return collect($this->urlsGroupedByStatusCode)->keys()->filter(function ($statusCode) {
-            return !$this->isSuccessOrRedirect($statusCode);
+            return ! $this->isSuccessOrRedirect($statusCode);
         })->count() > 0;
     }
 
