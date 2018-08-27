@@ -92,8 +92,8 @@ abstract class BaseReporter extends CrawlObserver
      */
     protected function isExcludedStatusCode($statusCode): bool
     {
-        $exludedStatusCodes = config('laravel-link-checker.reporters.exclude_status_codes', []);
+        $excludedStatusCodes = config('laravel-link-checker.reporters.exclude_status_codes', []);
 
-        return in_array($statusCode, $exludedStatusCodes);
+        return in_array($statusCode, $excludedStatusCodes);
     }
 }
