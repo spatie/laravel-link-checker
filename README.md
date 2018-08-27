@@ -3,7 +3,6 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-link-checker.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-link-checker)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/spatie/laravel-link-checker/master.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-link-checker)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/1c3e45a3-b89a-4339-b0e2-709df055704c.svg?style=flat-square)](https://insight.sensiolabs.com/projects/1c3e45a3-b89a-4339-b0e2-709df055704c)
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-link-checker.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-link-checker)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-link-checker.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-link-checker)
 

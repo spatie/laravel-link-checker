@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-link-checker` will be documented in this file
 
+## 4.1.1 - 2018-08-27
+
+- add support for Laravel 5.7
+- fix mail when broken urls are found
+
 ## 4.1.0 - 2018-04-26
 
 - add client options to config file
