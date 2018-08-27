@@ -2,9 +2,9 @@
 
 namespace Spatie\LinkChecker\Test;
 
+use Spatie\Crawler\Crawler;
 use Illuminate\Support\Facades\Log;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\Crawler\Crawler;
 use Spatie\LinkChecker\LinkCheckerServiceProvider;
 
 abstract class IntegrationTest extends Orchestra
