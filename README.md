@@ -19,10 +19,9 @@ You can install the package via composer:
 composer require spatie/laravel-link-checker
 ```
 
-Next, you must install the service provider:
+In Laravel 5.5+ the service provider will automatically get registered. In older versions of the framework just add the service provider in your config/app.php:
 
 ```php
-// config/app.php
 'providers' => [
     ...
     Spatie\LinkChecker\LinkCheckerServiceProvider::class,
