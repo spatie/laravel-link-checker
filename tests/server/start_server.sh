@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 if [ -z ${TRAVIS_JOB_ID} ]; then
+    npm install
+
     # not running under travis, stay in foreground until stopped
     node server.js
 else
