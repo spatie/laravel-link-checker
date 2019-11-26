@@ -2,10 +2,10 @@
 
 namespace Spatie\LinkChecker\Reporters;
 
-use Psr\Http\Message\UriInterface;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Mail\Mailer;
 use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\UriInterface;
 
 class MailBrokenLinks extends BaseReporter
 {

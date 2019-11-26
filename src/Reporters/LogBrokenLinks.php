@@ -2,9 +2,9 @@
 
 namespace Spatie\LinkChecker\Reporters;
 
-use Psr\Log\LoggerInterface;
-use Psr\Http\Message\UriInterface;
 use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\UriInterface;
+use Psr\Log\LoggerInterface;
 
 class LogBrokenLinks extends BaseReporter
 {
