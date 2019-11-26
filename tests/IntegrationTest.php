@@ -19,7 +19,7 @@ abstract class IntegrationTest extends Orchestra
      */
     protected $appUrl = 'http://localhost:4020';
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -77,7 +77,7 @@ abstract class IntegrationTest extends Orchestra
      */
     public function assertLogContainsTextAfterLastMarker($text)
     {
-        $this->assertContains($text, $this->getLogContentsAfterLastMarker());
+        $this->assertStringContainsString($text, $this->getLogContentsAfterLastMarker());
     }
 
     /**
@@ -87,7 +87,7 @@ abstract class IntegrationTest extends Orchestra
      */
     public function assertLogNotContainsTextAfterLastMarker($text)
     {
-        $this->assertNotContains($text, $this->getLogContentsAfterLastMarker());
+        $this->assertStringNotContainsString($text, $this->getLogContentsAfterLastMarker());
     }
 
     /**

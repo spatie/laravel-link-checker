@@ -7,7 +7,7 @@ use Spatie\LinkChecker\Reporters\MailBrokenLinks;
 
 class MailBrokenUrlsTest extends IntegrationTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

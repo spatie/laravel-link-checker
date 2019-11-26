@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-link-checker` will be documented in this file
 
+## 4.2.0 2009-11-26
+
+- remove support for older php versions
+- remove support for older laravel versions
+- support laravel 5.8 and 6
+
 ## 4.1.1 - 2018-08-27
 
 - add support for Laravel 5.7

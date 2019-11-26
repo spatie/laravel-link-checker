@@ -2,6 +2,7 @@
 
 namespace Spatie\LinkChecker\Reporters;
 
+use Illuminate\Support\Str;
 use Spatie\Crawler\CrawlObserver;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -69,7 +70,7 @@ abstract class BaseReporter extends CrawlObserver
      */
     protected function isSuccessOrRedirect($statusCode): bool
     {
-        return starts_with($statusCode, ['2', '3']);
+        return Str::startsWith($statusCode, ['2', '3']);
     }
 
     /**
