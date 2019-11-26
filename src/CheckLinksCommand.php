@@ -3,10 +3,10 @@
 namespace Spatie\LinkChecker;
 
 use Exception;
-use Spatie\Crawler\Crawler;
 use Illuminate\Console\Command;
-use Spatie\Crawler\CrawlProfile;
+use Spatie\Crawler\Crawler;
 use Spatie\Crawler\CrawlObserver;
+use Spatie\Crawler\CrawlProfile;
 
 class CheckLinksCommand extends Command
 {

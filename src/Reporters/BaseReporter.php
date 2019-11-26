@@ -2,11 +2,11 @@
 
 namespace Spatie\LinkChecker\Reporters;
 
-use Illuminate\Support\Str;
-use Spatie\Crawler\CrawlObserver;
-use Psr\Http\Message\UriInterface;
-use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Str;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+use Spatie\Crawler\CrawlObserver;
 
 abstract class BaseReporter extends CrawlObserver
 {
